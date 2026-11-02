@@ -39,30 +39,25 @@ Node.js berhasil terhubung ke MySQL melalui mysql2/promise dan konfigurasi .env.
 
 
 2. Membuat server memahami request client
-
 Memahami req.method, req.url, pathname, routing, dan membaca data dari request body.
-
 Ini langkah berikutnya.
 
 
 
 
 3. Menghubungkan request dengan query database
-
 Server menjalankan SELECT, INSERT, UPDATE, atau DELETE berdasarkan request yang diterima.
 
 
 
 
 4. Mengirim response ke client
-
 Mengembalikan status HTTP, header, dan data JSON menggunakan res.writeHead() dan res.end().
 
 
 
 
 5. Menguji seluruh alur CRUD
-
 Menggunakan Postman untuk menguji GET, POST, PUT, dan DELETE, termasuk validasi serta penanganan
 
 

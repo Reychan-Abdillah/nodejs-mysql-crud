@@ -1,0 +1,7 @@
+kenapa setelah menghubungkan server untuk berkomunikasi ke database 
+tahap selanjutnya malah Membuat server memahami request client
+bukan membuat client dapat melakukan query perintah
+
+catatan apa itu dan perbedaan async dan sync dan js berjalan dengan sistem apa
+
+catatan: apa itu readable stream data bisa datang dalam beberapa bagian (chunks), bukan selalu sekaligus.

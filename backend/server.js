@@ -1,6 +1,7 @@
 import http from "node:http";
+import db from "./config/db.js"
 
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
 
 
     const url = new URL(req.url, "http://localhost:3000");
@@ -24,8 +25,23 @@ const server = http.createServer((req, res) => {
     // Route : /products
     if (isProductPath) {
         if (req.method === "GET") {
-            res.statusCode = 200
-            res.end("successfully displayed all products")
+            try {
+                const [result] = await db.execute(
+                    `SELECT * FROM products_stock`
+                )
+                res.setHeader("Content-Type", "application/json")
+                res.statusCode = 200
+
+                res.end(JSON.stringify({
+                    message: "successfully displayed all products",
+                    data: result
+                }))
+            } catch (error) {
+                res.statusCode = 500;
+                res.setHeader("Content-Type", "application/json");
+                console.error("GET /products error:", error.message);
+                res.end(JSON.stringify({ error: "Internal Server Error" }));
+            }
         } else if (req.method === "POST") {
             res.statusCode = 201
             res.end("successfully added product data")
@@ -40,8 +56,33 @@ const server = http.createServer((req, res) => {
         }
     } else if (isValidProductsPath) {
         if (req.method === "GET") {
-            res.statusCode = 200
-            res.end(`successfully retrieved data by ID ${id}`)
+            try {
+                const [result] = await db.execute(
+                    `SELECT * FROM products_stock WHERE id = ?`,
+                    [id]
+                )
+
+                if (result.length === 0) {
+                    res.statusCode = 404;
+                    res.setHeader("Content-Type", "application/json");
+                    return res.end(JSON.stringify({ error: `Product with ID ${id} not found` }));
+                }
+
+
+                res.setHeader("Content-type", "application/json")
+                res.statusCode = 200
+                res.end(JSON.stringify({
+                    message: `successfully retrieved data based on ID ${id}`,
+                    data: result
+                }))
+            } catch (error) {
+                res.setHeader("Content-type", "application/json")
+                res.statusCode = 500
+                console.log(error, "error pada bagian get tunggal")
+                res.end(JSON.stringify({
+                    error: "Internal Server Error"
+                }))
+            }
         } else if (req.method === "PUT") {
             res.statusCode = 200
             res.end(`successfully modified product" ${id}`)
