@@ -5,3 +5,20 @@ bukan membuat client dapat melakukan query perintah
 catatan apa itu dan perbedaan async dan sync dan js berjalan dengan sistem apa
 
 catatan: apa itu readable stream data bisa datang dalam beberapa bagian (chunks), bukan selalu sekaligus.
+
+catatan: apa itu data dinamis
+
+catatan: data yang nilainya bisa berubah berubah
+
+catatan: apa yang dimaksud Request Node.js Bawaan adalah Event Emitter
+
+catatan: apa itu middleware
+
+
+
+
+Jika Anda nanti belajar framework seperti Express.js, Anda cukup menulis req.body tanpa perlu melakukan loop for await.
+Namun, di balik layar, Express sebenarnya menggunakan library (middleware) seperti express.json()
+yang melakukan hal yang persis sama: mengumpulkan chunks terlebih dahulu sebelum memberikannya
+kepada Anda dalam bentuk objek yang sudah rapi. Karena saat ini Anda menggunakan Node.js murni (native),
+Anda harus menuliskan proses manualnya sendiri.
